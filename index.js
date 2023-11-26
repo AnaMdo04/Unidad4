@@ -5,6 +5,8 @@
  *      const: es constante y no se puede modificar
  */
 
+/* eslint-env node */ // Indica a ESLint que estamos usando Node.js y sus variables globales
+
 // Importamos las bibliotecas necesarias.
 // Concretamente el framework express.
 const express = require("express");
