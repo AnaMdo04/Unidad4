@@ -23,6 +23,27 @@ app.listen(port, () => {
   console.log(`Servidor desplegado en puerto: ${port}`);
 });
 
+// Definimos la estructura de datos de confesionario
+
+let concesionarios = [
+  {
+    nombre: "Concesionario1",
+    direccion: "Dirección1",
+    coches: [
+      { modelo: "Corsa", cv: 120, precio: 15000 },
+      { modelo: "Astra", cv: 150, precio: 20000 },
+    ],
+  },
+  {
+    nombre: "Concesionario2",
+    direccion: "Dirección2",
+    coches: [
+      { modelo: "Clio", cv: 100, precio: 12000 },
+      { modelo: "Megane", cv: 130, precio: 18000 },
+    ],
+  },
+];
+
 // Definimos una estructura de datos
 // (temporal hasta incorporar una base de datos)
 let coches = [
