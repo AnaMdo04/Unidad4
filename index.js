@@ -78,42 +78,16 @@ app.delete("/concesionarios/:id", (request, response) => {
   response.json({ message: "ok" });
 });
 
-// Definimos una estructura de datos
-// (temporal hasta incorporar una base de datos)
-let coches = [
-  { marca: "Renault", modelo: "Clio" },
-  { marca: "Nissan", modelo: "Skyline R34" },
-];
-
-// Lista todos los coches
-app.get("/coches", (request, response) => {
-  response.json(coches);
-});
-
-// Añadir un nuevo coche
-app.post("/coches", (request, response) => {
-  coches.push(request.body);
-  response.json({ message: "ok" });
-});
-
-// Obtener un solo coche
-app.get("/coches/:id", (request, response) => {
+// Obtenemos todos los coches de un concesionario por su ID
+app.get("/concesionarios/:id/coches", (request, response) => {
   const id = request.params.id;
-  const result = coches[id];
-  response.json({ result });
+  const cochesConcesionario = concesionarios[id].coches;
+  response.json(cochesConcesionario);
 });
 
-// Actualizar un solo coche
-app.put("/coches/:id", (request, response) => {
+// Añadimos un nuevo coche a un concesionario por su ID
+app.post("/concesionarios/:id/coches", (request, response) => {
   const id = request.params.id;
-  coches[id] = request.body;
-  response.json({ message: "ok" });
-});
-
-// Borrar un elemento del array
-app.delete("/coches/:id", (request, response) => {
-  const id = request.params.id;
-  coches = coches.filter((item) => coches.indexOf(item) !== id);
-
+  concesionarios[id].coches.push(request.body);
   response.json({ message: "ok" });
 });
