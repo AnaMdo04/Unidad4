@@ -64,6 +64,20 @@ app.get("/concesionarios/:id", (request, response) => {
   response.json({ result });
 });
 
+// Actualizamos un concesionario por su ID
+app.put("/concesionarios/:id", (request, response) => {
+  const id = request.params.id;
+  concesionarios[id] = request.body;
+  response.json({ message: "ok" });
+});
+
+// Borramos un concesionario por su ID
+app.delete("/concesionarios/:id", (request, response) => {
+  const id = request.params.id;
+  concesionarios = concesionarios.filter((_, index) => index != id);
+  response.json({ message: "ok" });
+});
+
 // Definimos una estructura de datos
 // (temporal hasta incorporar una base de datos)
 let coches = [
