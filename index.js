@@ -109,3 +109,11 @@ app.put("/concesionarios/:id/coches/:cocheId", (request, response) => {
   concesionarios[id].coches[cocheId] = request.body;
   response.json({ message: "ok" });
 });
+
+// Borramos un coche de un concesionario por su ID y el ID del coche
+app.delete("/concesionarios/:id/coches/:cocheId", (request, response) => {
+  const id = request.params.id;
+  const cocheId = request.params.cocheId;
+  concesionarios[id].coches.splice(cocheId, 1);
+  response.json({ message: "ok" });
+});
