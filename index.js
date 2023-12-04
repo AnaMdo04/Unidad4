@@ -40,8 +40,8 @@ db.once("open", () => {
 app.use(express.json());
 
 // Utilizamos los routers
-app.use("/coches", cocheRouter);
-app.use("/concesionarios", concesionarioRouter);
+app.use("/coche", cocheRouter);
+app.use("/concesionario", concesionarioRouter);
 
 // Indicamos el puerto en el que vamos a desplegar la aplicación
 const port = process.env.PORT || 8080;
