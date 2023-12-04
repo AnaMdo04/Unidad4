@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+// Importa el modelo concesionario
+const Concesionario = require("./modelos/modeloConcesionario");
+
 // Conexión a la base de datos
 mongoose.connect("mongodb://localhost:27017/concesionariosDB", {
   useNewUrlParser: true,
