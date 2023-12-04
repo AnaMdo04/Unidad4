@@ -12,6 +12,7 @@
 // Concretamente el framework express.
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 
 // Importamos el modelo desde la carpeta "modelos"
 const Concesionario = require("./modelos/modeloConcesionario");
@@ -35,6 +36,9 @@ db.on("error", console.error.bind(console, "Error de conexión a la base de dato
 db.once("open", () => {
   console.log("Conectado a la base de datos");
 });
+
+// Añadimos Helmet a la aplicación para mejorar la seguridad
+app.use(helmet());
 
 // Indicamos que la aplicación puede recibir JSON (API Rest)
 app.use(express.json());
