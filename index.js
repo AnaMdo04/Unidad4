@@ -16,9 +16,9 @@ const mongoose = require("mongoose");
 // Importamos el modelo desde la carpeta "modelos"
 const Concesionario = require("./modelos/modeloConcesionario");
 
-// Importamos los routers desde la carpeta "crud"
-const cocheRouter = require("./crud/coche");
-const concesionarioRouter = require("./crud/concesionario");
+// Importamos los routers desde la carpeta "routers"
+const cocheRouter = require("./routers/coche");
+const concesionarioRouter = require("./routers/concesionario");
 
 // Inicializamos la aplicación
 const app = express();
