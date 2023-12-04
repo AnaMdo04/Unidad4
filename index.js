@@ -24,7 +24,7 @@ const concesionarioRouter = require("./routers/concesionario");
 const app = express();
 
 // Conexión a la base de datos
-mongoose.connect("mongodb://localhost:27017/concesionariosDB", {
+mongoose.connect("mongodb://127.0.0.1:27017/concesionariosDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -40,8 +40,8 @@ db.once("open", () => {
 app.use(express.json());
 
 // Utilizamos los routers
-app.use("/coche", cocheRouter);
-app.use("/concesionario", concesionarioRouter);
+app.use("/coches", cocheRouter);
+app.use("/concesionarios", concesionarioRouter);
 
 // Indicamos el puerto en el que vamos a desplegar la aplicación
 const port = process.env.PORT || 8080;
