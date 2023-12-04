@@ -1,54 +1,67 @@
-// Definimos la estructura de datos de confesionario
+const express = require("express");
+const router = express.Router();
 
-let concesionarios = [
-  {
-    nombre: "Concesionario1",
-    direccion: "Dirección1",
-    coches: [
-      { modelo: "Corsa", cv: 120, precio: 15000 },
-      { modelo: "Astra", cv: 150, precio: 20000 },
-    ],
-  },
-  {
-    nombre: "Concesionario2",
-    direccion: "Dirección2",
-    coches: [
-      { modelo: "Clio", cv: 100, precio: 12000 },
-      { modelo: "Megane", cv: 130, precio: 18000 },
-    ],
-  },
-];
+// Importamos el modelo Concesionario desde la carpeta "modelos"
+const Concesionario = require("../modelos/modeloConcesionario");
 
-// Listamos todos los concesionarios
-
-app.get("/concesionarios", (request, response) => {
-  response.json(concesionarios);
+// Ruta para obtener todos los concesionarios
+router.get("/", async (req, res) => {
+  try {
+    // Utilizamos el modelo Concesionario para obtener todos los concesionarios de la base de datos
+    const concesionarios = await Concesionario.find();
+    res.json(concesionarios);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Creamos un nuevo concesionario
-
-app.post("/concesionarios", (request, response) => {
-  concesionarios.push(request.body);
-  response.json({ message: "ok" });
+// Ruta para obtener un solo concesionario por su ID
+router.get("/:id", async (req, res) => {
+  try {
+    const idConcesionario = req.params.id;
+    // Utilizamos el modelo Concesionario para obtener un concesionario específico de la base de datos
+    const concesionario = await Concesionario.findById(idConcesionario);
+    res.json(concesionario);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Obtenemos un solo concesionario por su ID
-app.get("/concesionarios/:id", (request, response) => {
-  const id = request.params.id;
-  const result = concesionarios[id];
-  response.json({ result });
+// Ruta para crear un nuevo concesionario
+router.post("/", async (req, res) => {
+  try {
+    // Creamos una nueva instancia del modelo Concesionario con los datos del cuerpo de la solicitud
+    const nuevoConcesionario = new Concesionario(req.body);
+    // Guardamos el nuevo concesionario en la base de datos
+    await nuevoConcesionario.save();
+    res.json({ message: "Concesionario creado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Actualizamos un concesionario por su ID
-app.put("/concesionarios/:id", (request, response) => {
-  const id = request.params.id;
-  concesionarios[id] = request.body;
-  response.json({ message: "ok" });
+// Ruta para actualizar un concesionario por su ID
+router.put("/:id", async (req, res) => {
+  try {
+    const idConcesionario = req.params.id;
+    // Utilizamos el modelo Concesionario para actualizar un concesionario específico de la base de datos
+    await Concesionario.findByIdAndUpdate(idConcesionario, req.body);
+    res.json({ message: "ok" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Borramos un concesionario por su ID
-app.delete("/concesionarios/:id", (request, response) => {
-  const id = request.params.id;
-  concesionarios = concesionarios.filter((_, index) => index != id);
-  response.json({ message: "ok" });
+// Ruta para borrar un concesionario por su ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const idConcesionario = req.params.id;
+    // Utilizamos el modelo Concesionario para borrar un concesionario específico de la base de datos
+    await Concesionario.findByIdAndDelete(idConcesionario);
+    res.json({ message: "Concesionario borrado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
+
+module.exports = router;
