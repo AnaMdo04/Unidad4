@@ -1,7 +1,27 @@
+/**
+ * Tres formas de almacenar valores en memoria en javascript:
+ *      let: se puede modificar
+ *      var: se puede modificar
+ *      const: es constante y no se puede modificar
+ */
+
+/* eslint-env node */ // Indica a ESLint que estamos usando Node.js y sus variables globales
+
+// Importamos las bibliotecas necesarias.
+
+// Concretamente el framework express.
+const express = require("express");
 const mongoose = require("mongoose");
 
-// Importa el modelo concesionario
+// Importamos el modelo desde la carpeta "modelos"
 const Concesionario = require("./modelos/modeloConcesionario");
+
+// Importamos los routers desde la carpeta "crud"
+const cocheRouter = require("./crud/coche");
+const concesionarioRouter = require("./crud/concesionario");
+
+// Inicializamos la aplicación
+const app = express();
 
 // Conexión a la base de datos
 mongoose.connect("mongodb://localhost:27017/concesionariosDB", {
@@ -16,24 +36,12 @@ db.once("open", () => {
   console.log("Conectado a la base de datos");
 });
 
-/**
- * Tres formas de almacenar valores en memoria en javascript:
- *      let: se puede modificar
- *      var: se puede modificar
- *      const: es constante y no se puede modificar
- */
-
-/* eslint-env node */ // Indica a ESLint que estamos usando Node.js y sus variables globales
-
-// Importamos las bibliotecas necesarias.
-// Concretamente el framework express.
-const express = require("express");
-
-// Inicializamos la aplicación
-const app = express();
-
 // Indicamos que la aplicación puede recibir JSON (API Rest)
 app.use(express.json());
+
+// Utilizamos los routers
+app.use("/coches", cocheRouter);
+app.use("/concesionarios", concesionarioRouter);
 
 // Indicamos el puerto en el que vamos a desplegar la aplicación
 const port = process.env.PORT || 8080;
