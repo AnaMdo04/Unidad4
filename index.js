@@ -13,6 +13,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 
 // Importamos el modelo desde la carpeta "modelos"
 const Concesionario = require("./modelos/modeloConcesionario");
@@ -23,6 +25,9 @@ const concesionarioRouter = require("./routers/concesionario");
 
 // Inicializamos la aplicación
 const app = express();
+
+// Configuración de Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Conexión a la base de datos
 mongoose.connect("mongodb://127.0.0.1:27017/concesionariosDB", {
