@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Coche = require("../modelos/modeloConcesionario");
 
+// Obtener coches de un concesionario por su ID
 router.get("/:id/coches", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
@@ -12,6 +13,20 @@ router.get("/:id/coches", async (req, res) => {
   }
 });
 
+// Añadir un nuevo coche al concesionario por su ID
+router.post("/:id/coches", async (req, res) => {
+  try {
+    const idConcesionario = req.params.id;
+    req.body.concesionario = idConcesionario;
+    const nuevoCoche = new Coche(req.body);
+    await nuevoCoche.save();
+    res.status(201).json({ message: "Coche añadido correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Obtener un coche por su índice para el concesionario especificado por ConcesionarioID.
 router.get("/:id/coches/:cocheId", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
@@ -20,24 +35,13 @@ router.get("/:id/coches/:cocheId", async (req, res) => {
     if (!coche) {
       return res.status(404).json({ error: "Coche no encontrado" });
     }
-    res.json({ coche });
+    res.json(coche);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.post("/:id/coches", async (req, res) => {
-  try {
-    const idConcesionario = req.params.id;
-    req.body.concesionario = idConcesionario;
-    const nuevoCoche = new Coche(req.body);
-    await nuevoCoche.save();
-    res.status(201).json({ message: "Coche creado correctamente" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
+// Actualizar un coche por su índice para el concesionario especificado por ConcesionarioID
 router.put("/:id/coches/:cocheId", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
@@ -54,6 +58,7 @@ router.put("/:id/coches/:cocheId", async (req, res) => {
   }
 });
 
+// Borrar un coche por su índice para el concesionario especificado por ConcesionarioID
 router.delete("/:id/coches/:cocheId", async (req, res) => {
   try {
     const idConcesionario = req.params.id;

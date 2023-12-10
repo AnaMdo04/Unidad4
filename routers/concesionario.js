@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Concesionario = require("../modelos/modeloConcesionario");
 
+// Obtener todos los concesionarios
 router.get("/", async (req, res) => {
   try {
     const concesionarios = await Concesionario.find();
@@ -11,6 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Obtener un concesionario por su ID
 router.get("/:id", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
@@ -21,6 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Crear un nuevo concesionario
 router.post("/", async (req, res) => {
   try {
     const nuevoConcesionario = new Concesionario(req.body);
@@ -31,6 +34,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Actualizar un concesionario por su ID
 router.put("/:id", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
@@ -41,6 +45,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Borrar un concesionario por su ID
 router.delete("/:id", async (req, res) => {
   try {
     const idConcesionario = req.params.id;
