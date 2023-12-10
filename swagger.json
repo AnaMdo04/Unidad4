@@ -80,7 +80,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "{ message: 'Concesionario creado correctamente' }"
           }
         }
@@ -202,7 +202,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "{ message: 'Coche añadido correctamente' }"
           }
         }
