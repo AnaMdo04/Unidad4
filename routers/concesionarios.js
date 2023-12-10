@@ -116,13 +116,16 @@ router.put("/:id/coches/:idCoche", async (req, res) => {
 router.delete("/:id/coches/:idCoche", async (req, res) => {
   try {
     const concesionario = await Concesionario.findById(req.params.id);
-    const coche = concesionario.coches.id(req.params.idCoche);
 
-    if (!coche) {
-      return res.status(404).json({ message: "Coche no encontrado." });
+    if (!concesionario) {
+      return res.status(404).json({ message: "Concesionario no encontrado." });
     }
 
-    coche.remove();
+    const cocheId = req.params.idCoche;
+
+    // Utilizar el método pull para eliminar el subdocumento de la matriz
+    concesionario.coches.pull({ _id: cocheId });
+
     await concesionario.save();
 
     res.json({ message: "Coche eliminado correctamente" });
