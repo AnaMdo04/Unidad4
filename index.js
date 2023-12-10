@@ -20,8 +20,7 @@ const swaggerDocument = require("./swagger.json");
 const Concesionario = require("./modelos/modeloConcesionario");
 
 // Importamos los routers desde la carpeta "routers"
-const cocheRouter = require("./routers/coche");
-const concesionarioRouter = require("./routers/concesionario");
+const concesionarios = require("./routers/concesionarios");
 
 // Inicializamos la aplicación
 const app = express();
@@ -49,8 +48,7 @@ app.use(helmet());
 app.use(express.json());
 
 // Utilizamos los routers
-app.use("/coches", cocheRouter);
-app.use("/concesionarios", concesionarioRouter);
+app.use("/concesionarios", concesionarios);
 
 // Indicamos el puerto en el que vamos a desplegar la aplicación
 const port = process.env.PORT || 8080;

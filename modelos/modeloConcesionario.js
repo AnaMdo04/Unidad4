@@ -1,18 +1,20 @@
 // Importamos la biblioteca mongoose
 const mongoose = require("mongoose");
 
-// Definimos el esquema para el modelo de coche
-const cocheSchema = new mongoose.Schema({
-  modelo: String,
-  cv: Number,
-  precio: Number,
-});
-
 // Definimos el esquema para el modelo de concesionario, que incluye una lista de coches
 const concesionarioSchema = new mongoose.Schema({
-  nombre: String,
-  direccion: String,
-  coches: [cocheSchema],
+  nombre: { type: String, require: true },
+  direccion: { type: String, require: true },
+  coches: {
+    type: [
+      {
+        modelo: { type: String, require: true },
+        cv: { type: Number, require: true },
+        precio: { type: Number, require: true },
+      },
+    ],
+    require: true,
+  },
 });
 
 // Creamos el modelo Concesionario a partir del esquema concesionarioSchema
