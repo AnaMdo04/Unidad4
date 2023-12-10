@@ -112,7 +112,7 @@ router.put("/:id/coches/:idCoche", async (req, res) => {
   }
 });
 
-// Borrar un coche por su índice para el concesionario especificado por ConcesionarioID
+// Borrar un coche por su id para el concesionario especificado por ConcesionarioID
 router.delete("/:id/coches/:idCoche", async (req, res) => {
   try {
     const concesionario = await Concesionario.findById(req.params.id);
